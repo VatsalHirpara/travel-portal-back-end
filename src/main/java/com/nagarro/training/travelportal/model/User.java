@@ -41,10 +41,6 @@ public class User {
 	@JsonIgnore
 	private String password;
 	
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
-//	@JsonIgnoreProperties("user")
-	
 	@JsonIgnore
 	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
 	private List<Ticket> tickets;

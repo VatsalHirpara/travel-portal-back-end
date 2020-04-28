@@ -40,9 +40,6 @@ public class Ticket {
 	@Column(nullable = true)
 	private String additionalDetails;
 	
-//	@ManyToOne
-//	@JsonIgnoreProperties("tickets") 
-	
 	@JoinColumn(nullable = false)
 	@ManyToOne
 	private User user;
