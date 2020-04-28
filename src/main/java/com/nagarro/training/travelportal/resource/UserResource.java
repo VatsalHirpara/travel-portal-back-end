@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nagarro.training.travelportal.model.User;
 import com.nagarro.training.travelportal.repository.UserRepository;
+import com.nagarro.training.travelportal.service.PasswordGenerator;
 
 @RestController
 public class UserResource {
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	PasswordGenerator passwordGenerator;
 	
 	@GetMapping("/users")
 	public List<User> getUsers(){
@@ -29,7 +33,10 @@ public class UserResource {
 	}
 	
 	@PostMapping("/users")
-	public User addUser(@RequestBody User user) {
-		return userRepository.saveAndFlush(user);
+	public User addUser(@RequestBody User body) {
+		User user = userRepository.save(body);
+		user.setPassword(passwordGenerator.generateRandomPassword());
+		userRepository.flush();
+		return user;
 	}
 }
