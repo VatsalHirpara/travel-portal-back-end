@@ -7,9 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class User {
 	@Id
 	@GeneratedValue
-	private int id;
+	private Integer id;
 	private String firstName;
 	private String lastName;
 	private String businessUnit;
@@ -36,9 +36,16 @@ public class User {
 	private String zip;
 	private String country;
 	private boolean isAdmin;
+    private String roles;
+    
 	@JsonIgnore
 	private String password;
 	
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
+//	@JsonIgnoreProperties("user")
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
 	private List<Ticket> tickets;
 }
