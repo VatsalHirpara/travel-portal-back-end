@@ -1,12 +1,14 @@
 package com.nagarro.training.travelportal.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
@@ -20,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class Ticket {
 	@Id
 	@GeneratedValue
-	private int id;
+	private Integer id;
 	private String type;
 	private String priority;
 	private String travelCity;
@@ -36,8 +38,19 @@ public class Ticket {
 	@Column(nullable = true)
 	private String upperBound;
 	@Column(nullable = true)
-	private String additionalDetails;	
+	private String additionalDetails;
 	
+//	@ManyToOne
+//	@JsonIgnoreProperties("tickets") 
+	
+	@JoinColumn(nullable = false)
 	@ManyToOne
 	private User user;
+	
+	@Column(columnDefinition = "varchar(255) default 'Submitted'")
+	private String status;
+	private Date submitDate;
+	
+	@Lob
+	private List<byte[]> files; 
 }
