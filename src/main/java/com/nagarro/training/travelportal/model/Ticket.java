@@ -48,6 +48,8 @@ public class Ticket {
 	private String status;
 	private Date submitDate;
 	
+	
 	@Lob
 	private List<byte[]> files; 
+	private String comments;
 }
