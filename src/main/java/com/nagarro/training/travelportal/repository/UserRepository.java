@@ -7,8 +7,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.nagarro.training.travelportal.model.User;
 
-//@RepositoryRestResource(collectionResourceRel="users",path="users")
+@RepositoryRestResource(collectionResourceRel="users",path="users")	
 public interface UserRepository extends JpaRepository<User,Integer>{ 
-	public Optional<User> findById(Integer id);
 	public Optional<User> findByEmail(String email);
+			
 }
