@@ -19,7 +19,7 @@ import com.nagarro.training.travelportal.service.MyUserDetailsService;
 import com.nagarro.training.travelportal.util.JwtUtil;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200",allowCredentials = "true")
 public class AuthenticationResource {
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -47,6 +47,6 @@ public class AuthenticationResource {
 
 		final String jwt = jwtTokenUtil.generateToken(myUserDetails);
 
-		return ResponseEntity.ok(new AuthenticationResponse(jwt,myUserDetails.getId(),200));
+		return ResponseEntity.ok(new AuthenticationResponse(jwt,myUserDetails.getId(),200,myUserDetails.getIsAdmin()));
 	}	
 }
