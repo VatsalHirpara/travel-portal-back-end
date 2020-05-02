@@ -35,6 +35,7 @@ public class User {
 	private String state;
 	private String zip;
 	private String country;
+	
 	private boolean isAdmin;
     private String roles;
     
