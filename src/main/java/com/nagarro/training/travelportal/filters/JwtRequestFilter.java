@@ -20,12 +20,9 @@ import com.nagarro.training.travelportal.util.JwtUtil;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
-	
-	@Autowired
-	private MyUserDetailsService userDetailsService;
 
 	@Autowired
-	private JwtUtil jwtUtil;
+	private MyUserDetailsService userDetailsService;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -38,12 +35,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
 		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
 			jwt = authorizationHeader.substring(7);
-			username = jwtUtil.extractUsername(jwt);
+			username = JwtUtil.extractUsername(jwt);
 		}
 
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-			if (jwtUtil.validateToken(jwt, userDetails)) {
+			if (JwtUtil.validateToken(jwt, userDetails)) {
 
 				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());
