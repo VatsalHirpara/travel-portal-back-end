@@ -2,6 +2,7 @@ package com.nagarro.training.travelportal.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +15,7 @@ public class MyUserDetails implements UserDetails {
 	private String userName;
 	private String password;
 	private boolean isAdmin;
-//    private List<GrantedAuthority> authorities;
+	private List<GrantedAuthority> authorities;
 
 	public boolean getIsAdmin() {
 		return isAdmin;
@@ -29,9 +30,6 @@ public class MyUserDetails implements UserDetails {
 		this.password = user.getPassword();
 		this.id = user.getId();
 		this.isAdmin = user.isAdmin();
-//        this.authorities = Arrays.stream(user.getRoles().split(","))
-//                    .map(SimpleGrantedAuthority::new)
-//                    .collect(Collectors.toList());
 	}
 
 	public int getId() {
@@ -40,7 +38,6 @@ public class MyUserDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return authorities;
 		return new ArrayList<>();
 	}
 
