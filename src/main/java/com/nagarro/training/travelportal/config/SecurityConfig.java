@@ -9,8 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.nagarro.training.travelportal.filters.JwtRequestFilter;
@@ -33,17 +32,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-//		http.authorizeRequests()
-//			.antMatchers("/admin").hasRole("ADMIN")
-//			.antMatchers("/users").hasAnyRole("ADMIN","USER")
-//			.antMatchers("/").permitAll()
-//			.and().formLogin();
-
 		http.cors().and()
 			.csrf().disable()
 			.authorizeRequests() 
 			.antMatchers("/authenticate").permitAll()
 			.antMatchers("/registration").permitAll()
+			.antMatchers("/forgot-password").permitAll()
+			.antMatchers("/users/{id}").permitAll()
 			.anyRequest().authenticated()
 			.and().exceptionHandling()
 			.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -57,8 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
+	public BCryptPasswordEncoder  passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
-
 }
